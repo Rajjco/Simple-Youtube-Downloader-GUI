@@ -1,5 +1,6 @@
 # Simple-Youtube-Downloader-GUI
 Downloads Youtube Videos In highest Quality with a Single Click.
+
 Also Downloads almost all public videos just type the URL and try it out.
 
 Notice If you want to compile it yourself:  
