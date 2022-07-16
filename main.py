@@ -40,16 +40,11 @@ def get_video():
             p = subprocess.Popen(f'cmd /c bin\\yt-dlp.exe {durl} -P {dlocation} --ffmpeg-location bin\\ffmpeg.exe',
                                 shell=True,
                                 stdout=subprocess.PIPE)
-            if subprocess.PIPE == -1:
-                value_label.configure(font="Consolas", text='Error')
-                progress_bar.stop()
-                return None
-            else:
-                for line in p.stdout:
+            for line in p.stdout:
                     value_label.configure(font="Consolas", text=f'{line.splitlines()}')
-                    sys.stdout.flush()
-                progress_bar.stop()
-                value_label.configure(font="Consolas", text='Download Finished')
+            sys.stdout.flush()
+            progress_bar.stop()
+            value_label.configure(font="Consolas", text='Download Finished')
 
 
 icon_path = "Resources/logo.png"
