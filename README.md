@@ -5,6 +5,7 @@ Also Downloads almost all public videos just type the URL and try it out.
 
 Notice If you want to compile it yourself:  
 Requires ffmpeg to download videos > 720p. "Place ffmpeg.exe in bin folder"
+
 otherwise download the precompiled release in releases page which includes ffmpeg.
 
 
