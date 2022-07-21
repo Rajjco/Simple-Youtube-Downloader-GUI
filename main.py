@@ -2,7 +2,6 @@ import tkinter as tk
 import subprocess
 from threading import Thread
 from tkinter import ttk, filedialog, messagebox,Menu,NORMAL,END
-import sys
 
 
 def click(event):
@@ -10,6 +9,11 @@ def click(event):
     url_box.delete(0, END)
     url_box.unbind('<Button-1>', clicked)
 
+def do_popup(event):
+    try:
+        m.tk_popup(event.x_root, event.y_root)
+    finally:
+        m.grab_release()
 
 def paste():
     clipboard = root.clipboard_get()
@@ -40,11 +44,13 @@ def get_video():
             p = subprocess.Popen(f'cmd /c bin\\yt-dlp.exe {durl} -P {dlocation} --ffmpeg-location bin\\ffmpeg.exe',
                                 shell=True,
                                 stdout=subprocess.PIPE)
-            for line in p.stdout:
-                    value_label.configure(font="Consolas", text=f'{line.splitlines()}')
-            sys.stdout.flush()
-            progress_bar.stop()
-            value_label.configure(font="Consolas", text='Download Finished')
+            while True:
+                line = p.stdout.readline()
+                value_label.configure(font=("Consolas",8), text=f'{line.decode().format(3, 5)}')
+                if line == b'':
+                    value_label.configure(foreground="#2fba2c",font="Consolas", text='Download Finished')
+                    progress_bar.stop()
+                    break
 
 
 icon_path = "Resources/logo.png"
@@ -67,13 +73,6 @@ m = Menu(root, tearoff=0)
 m.add_command(label="Copy", command=copy)
 m.add_separator()
 m.add_command(label="Paste", command=paste)
-
-def do_popup(event):
-    try:
-        m.tk_popup(event.x_root, event.y_root)
-    finally:
-        m.grab_release()
-
 
 url_box.bind('<Button-3>', do_popup)
 
