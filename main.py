@@ -42,7 +42,7 @@ def get_video():
             tk.messagebox.showerror(title="Error", message="Select Save Location")
         elif len(dlocation) >= 1:
             progress_bar['value'] = 0
-            p = subprocess.Popen(f'cmd /c bin\\yt-dlp.exe {durl} -P {dlocation} --ffmpeg-location bin\\ffmpeg.exe',
+            p = subprocess.Popen(f'cmd /c bin\\yt-dlp.exe {durl} -P {dlocation} --ffmpeg-location bin\\ffmpeg.exe -N 20',
                                 shell=True,
                                 stdout=subprocess.PIPE)
             while True:
