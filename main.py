@@ -4,6 +4,7 @@ from threading import Thread
 from tkinter import ttk, filedialog, messagebox,Menu,NORMAL,END
 
 
+
 def click(event):
     url_box.configure(state=NORMAL)
     url_box.delete(0, END)
@@ -40,16 +41,17 @@ def get_video():
         if len(dlocation) == 0:
             tk.messagebox.showerror(title="Error", message="Select Save Location")
         elif len(dlocation) >= 1:
-            progress_bar.start()
+            progress_bar['value'] = 0
             p = subprocess.Popen(f'cmd /c bin\\yt-dlp.exe {durl} -P {dlocation} --ffmpeg-location bin\\ffmpeg.exe',
                                 shell=True,
                                 stdout=subprocess.PIPE)
             while True:
+                progress_bar['value']+=10
                 line = p.stdout.readline()
                 value_label.configure(font=("Consolas",8), text=f'{line.decode().format(3, 5)}')
                 if line == b'':
                     value_label.configure(foreground="#2fba2c",font="Consolas", text='Download Finished')
-                    progress_bar.stop()
+                    progress_bar['value'] = 100
                     break
 
 
@@ -83,7 +85,7 @@ s.configure("red.Horizontal.TProgressbar", background='#FF0000')
 progress_bar = ttk.Progressbar(
     root,
     orient='horizontal',
-    mode='indeterminate',
+    mode='determinate',
     length=150,
     style='red.Horizontal.TProgressbar'
 )
