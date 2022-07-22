@@ -51,10 +51,8 @@ def get_video():
                 value_label.configure(font=("Consolas",8), text=f'{line.decode().format(3, 5)}')
                 progress_label.configure(foreground="#2fba2c", font=("Consolas",8),
                                          text='Downloading Video Please Wait...')
-                #
-                if p.poll() == None:
-                    pass
-                else:
+
+                if type(p.poll()) == int:
                     value_label.configure(foreground="#2fba2c",font="Consolas", text='Download Finished')
                     progress_bar['value'] = 100
                     progress_label.configure(text='')
