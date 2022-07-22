@@ -46,19 +46,23 @@ def get_video():
                                 shell=True,
                                 stdout=subprocess.PIPE)
             while True:
-                progress_bar['value']+=10
                 line = p.stdout.readline()
+                progress_bar['value']+=10
                 value_label.configure(font=("Consolas",8), text=f'{line.decode().format(3, 5)}')
+                progress_label.configure(foreground="#2fba2c", font=("Consolas",8),
+                                         text='Downloading Video Please Wait...')
                 if line == b'':
                     value_label.configure(foreground="#2fba2c",font="Consolas", text='Download Finished')
                     progress_bar['value'] = 100
+                    progress_label.configure(text='')
                     break
 
 
 icon_path = "Resources/logo.png"
 root = tk.Tk()
-root.title("Simple Youtube Downloader v1.0")
+root.title("Simple Youtube Downloader v1.1.0")
 root.geometry('620x300')
+root.resizable(width=False, height=False)
 root.configure(bg="#FFFFFF", borderwidth=0, highlightthickness=0)
 root.iconphoto(False, tk.PhotoImage(file=icon_path))
 
@@ -93,6 +97,9 @@ progress_bar.pack()
 
 value_label = ttk.Label(root, background="#FFFFFF",text="")
 value_label.pack()
+
+progress_label = ttk.Label(root, background="#FFFFFF",text="")
+progress_label.pack()
 
 button_image = tk.PhotoImage(file='Resources/logo.png')
 download = tk.Button(root, image=button_image, borderwidth=0, highlightthickness=0, bg="#FAFAFA", text='Download',
