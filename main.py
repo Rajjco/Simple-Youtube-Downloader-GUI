@@ -51,11 +51,15 @@ def get_video():
                 value_label.configure(font=("Consolas",8), text=f'{line.decode().format(3, 5)}')
                 progress_label.configure(foreground="#2fba2c", font=("Consolas",8),
                                          text='Downloading Video Please Wait...')
-                if line == b'':
+                #
+                if p.poll() == None:
+                    pass
+                else:
                     value_label.configure(foreground="#2fba2c",font="Consolas", text='Download Finished')
                     progress_bar['value'] = 100
                     progress_label.configure(text='')
                     break
+
 
 
 icon_path = "Resources/logo.png"
@@ -71,7 +75,7 @@ type_label = tk.Label(root, bg="#FFFFFF", text="Simple Youtube Downloader", fg='
 type_label.pack(ipadx=20, ipady=25)
 
 url_box = tk.Entry(root, bg="#FF0000", borderwidth=3, width=50)
-url_box.insert(0, 'Enter Youtube URL:')
+url_box.insert(0, 'Enter Youtube Share URL:')
 url_box.pack(pady=5)
 clicked = url_box.bind('<Button-1>', click)
 
